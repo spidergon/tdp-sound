@@ -1,5 +1,5 @@
 {
-  "name": "vigilant-sound",
+  "name": "tdp-sound",
   "version": "0.1.0",
   "description": "Wordpress plugin to add and manage sounds",
   "scripts": {
@@ -8,11 +8,19 @@
     "build": "wp-scripts build"
   },
   "author": "@chrisservius",
-  "license": "GPL-2.0-or-later",
+  "private": true,
+  "license": "GPLv3",
+  "repository": "git@github.com:spidergon/tdp-sound.git",
+  "homepage": "https://github.com/spidergon/tdp-sound#readme",
+  "bugs": {
+    "url": "https://github.com/spidergon/tdp-sound/issues"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@wordpress/scripts": "^3.2.1",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^4.1.10",
     "del": "^4.1.1",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
@@ -30,7 +38,8 @@
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-zip": "^4.2.0",
-    "vinyl-paths": "^2.1.0"
+    "gulp-zip": "^5.0.0",
+    "postcss-assets": "^5.0.0",
+    "vinyl-paths": "^3.0.0"
   }
 }
