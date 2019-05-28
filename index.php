@@ -1,14 +1,28 @@
 <?php
-/**
- * Plugin Name:       Vigilant Sound
- * Description:       A plugin to add and manage sounds.
- * Version:           0.1.0
- * Author:            Christopher Servius
- * Author URI:        https://toucandigitalpartner.com
- * License:           GPLv2 or later
- * Text Domain:       vigilant_sound
- */
+/*
+Plugin Name:       Vigilant Sound
+Description:       A plugin to add and manage sounds.
+Version:           0.1.0
+Author:            Christopher Servius
+Author URI:        https://toucandigitalpartner.com
+Text Domain:       vigilant_sound
+License:           GPLv3
 
+This plugin is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+This plugin is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this plugin. If not, see https://github.com/spidergon/vigilant-sound/blob/master/LICENSE.
+*/
+
+/** Vigilan Sound main plugin file. */
 class Vigilant_Sound {
 
   /**
