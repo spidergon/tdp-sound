@@ -5,12 +5,12 @@ function animateSoundBtn (btn, icon) {
   btn.classList.add(icon)
 }
 
-function run (link, player, playlist) {
-  player.src = playlist[link.index()].file
+function play (link, player, playlist) {
   link
     .addClass('active')
     .siblings()
     .removeClass('active')
+  player.src = playlist[link.index()].file
   player.load()
   player.play()
 }
@@ -41,23 +41,6 @@ function run (link, player, playlist) {
         }
       }
     })
-    // TODO July 13, 2019: Remove these!
-    htmlPlaylist.append(`<span>Beethoven-MoonlightSonata</span>`)
-    playlist[3] = { file: 'http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3' }
-    htmlPlaylist.append(`<span>CanoninD</span>`)
-    playlist[4] = { file: 'http://www.archive.org/download/CanonInD_261/CanoninD.mp3' }
-    // htmlPlaylist.append(
-    //   `<a href="http://www.archive.org/download/bolero_69/Bolero.mp3">Bolero</a>`
-    // )
-    // htmlPlaylist.append(
-    //   `<a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Beethoven-MoonlightSonata</a>`
-    // )
-    // htmlPlaylist.append(
-    //   `<a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">CanoninD</a>`
-    // )
-    // htmlPlaylist.append(
-    //   `<a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">PatrikbkarlChamberSymph_vbr</a>`
-    // )
 
     // Init sound button effect
     const soundBtn = document.getElementById('sound-btn')
@@ -92,10 +75,10 @@ function run (link, player, playlist) {
           e.preventDefault()
           const link = $(e.target)
           current = link.index()
-          run(link, audio[0], playlist)
+          play(link, audio[0], playlist)
         })
 
-        audio[0].addEventListener('ended', e => {
+        audio[0].addEventListener('ended', () => {
           current++
           let link
           if (current === len) {
@@ -104,14 +87,14 @@ function run (link, player, playlist) {
           } else {
             link = tracks[current]
           }
-          run($(link), audio[0], playlist)
+          play($(link), audio[0], playlist)
         })
 
-        audio[0].addEventListener('playing', e => {
+        audio[0].addEventListener('playing', () => {
           animateSoundBtn(soundBtn, 'speaker')
         })
 
-        audio[0].addEventListener('pause', e => {
+        audio[0].addEventListener('pause', () => {
           animateSoundBtn(soundBtn, 'speaker-mute')
         })
       }

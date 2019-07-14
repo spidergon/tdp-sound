@@ -37,7 +37,7 @@ class TDP_Sound {
     add_action( 'wp_print_footer_scripts', array( $this, 'add_scripts_to_footer' ) );
     add_action( 'wp_footer', array( $this, 'inject_code_to_footer' ) );
     if ( is_admin() ) {
-      add_action( 'admin_menu', array( $this, 'tdp_sound_add_menu_page') );
+      add_action( 'admin_menu', array( $this, 'admin_add_menu_page') );
       add_action( 'admin_init', array( $this, 'admin_settings_init' ) );
     }
   }
@@ -54,17 +54,19 @@ class TDP_Sound {
     return $this->get_template_html( 'playlist', $attributes );
   }
 
+  /** Add the main css file. */
   public function add_css() {
     $plugin_url = plugin_dir_url( __FILE__ );
     wp_enqueue_style( 'tdp-sound-soudcloud', $plugin_url . 'style.css' );
   }
 
-  /** Add the JavaScript files at the end of the page. */
+  /** Add the JavaScript files to the footer. */
   public function add_scripts_to_footer() {
     echo "<script src='". plugin_dir_url( __FILE__ ) . "js/vendor/howler.min.js'></script>";
     echo "<script src='". plugin_dir_url( __FILE__ ) . "build/index.js'></script>";
   }
 
+  /** Inject custom code to the footer. */
   public function inject_code_to_footer() {
     $option = get_option( 'tdp_sound_options' );
     ?>
@@ -72,8 +74,8 @@ class TDP_Sound {
     <?php
   }
 
-  /**  */
-  public function tdp_sound_add_menu_page() {
+  /** Add the menu to the admin menu. */
+  public function admin_add_menu_page() {
     global $_wp_last_object_menu;
     add_menu_page(
       'TDP Sound',
@@ -89,18 +91,15 @@ class TDP_Sound {
   /** Render the admin settings page. */
   public function render_admin_settings_page() {
     if ( !current_user_can('manage_options') ) return; // check user capabilities
-    // add error/update messages
-
     // check if the user have submitted the settings
     // wordpress will add the "settings-updated" $_GET parameter to the url
     if ( isset( $_GET['settings-updated'] ) ) {
       // add settings saved message with the class of "updated"
       add_settings_error( 'tdp_sound_messages', 'tdp_sound_message', __( 'Sounds Saved', 'tdp_sound' ), 'updated' );
     }
-
     // show error/update messages
     settings_errors( 'tdp_sound_messages' );
-
+    // render the page
     echo $this->get_template_html( 'admin-settings-page' );
   }
 
@@ -108,9 +107,6 @@ class TDP_Sound {
   public function admin_settings_init() {
     // register a new setting for "tdp_sound" page
     register_setting( 'tdp_sound', 'tdp_sound_options' );
-    register_setting( 'tdp_sound', 'tdp_sound_options_count' );
-
-    $options = get_option( 'tdp_sound_options_count' );
 
     // register a new section in the "tdp_sound" page
     add_settings_section(
@@ -138,23 +134,19 @@ class TDP_Sound {
     }
   }
 
-  /**
-   * custom option and settings:
-   * callback functions
-   */
-
-  // main section cb
-
-  // section callbacks can accept an $args parameter, which is an array.
+  /** Render main section. */
+  // it can accept an $args parameter, which is an array.
   // $args have the following keys defined: title, id, callback.
   // the values are defined at the add_settings_section() function.
   public function tdp_sound_section_main_cb( $args ) {
-    echo '<p id="' . esc_attr( $args['id'] ) . '">' . esc_html_e( 'To add the playlist on a page, use the following shortcode:', 'tdp_sound' ) . '<input type="text" value="[tdp-sound-playlist]" readonly></p>';
+    echo '<div id="' . esc_attr( $args['id'] ) . '"><p>';
+    echo esc_html_e( 'To add the playlist on a page, use the following shortcode:', 'tdp_sound' );
+    echo '&nbsp;<strong>[tdp-sound-playlist]</strong></p><p>';
+    echo esc_html_e( 'Add your sound urls below:', 'tdp_sound' ) . '</p></div>';
   }
 
-  // pill field cb
-
-  // field callbacks can accept an $args parameter, which is an array.
+  /** Render a field. */
+  // it can accept an $args parameter, which is an array.
   // $args is defined at the add_settings_field() function.
   // wordpress has magic interaction with the following keys: label_for, class.
   // the "label_for" key value is used for the "for" attribute of the <label>.
