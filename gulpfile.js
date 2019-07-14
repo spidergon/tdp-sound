@@ -73,7 +73,7 @@ const cssSettings = {
       baseUrl: isProd ? dir.root : '/lingroove/wp-content/plugins/tdp-sound/'
     }),
     require('autoprefixer')({
-      browsers: ['last 2 versions', '> 2%']
+      overrideBrowserslist: ['last 2 versions', '> 2%']
     }),
     require('css-mqpacker'),
     require('cssnano')

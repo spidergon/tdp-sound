@@ -33,6 +33,7 @@ class TDP_Sound {
    */
   public function __construct() {
     add_shortcode( 'tdp-sound-playlist', array( $this, 'render_playist_shortcode' ) );
+    add_action( 'wp_enqueue_scripts', array( $this, 'add_css' ) );
     add_action( 'wp_print_footer_scripts', array( $this, 'add_scripts_to_footer' ) );
     add_action( 'admin_init', array( $this, 'admin_settings_init' ) );
     add_action( 'admin_menu', array( $this, 'tdp_sound_options_page') );
@@ -49,6 +50,11 @@ class TDP_Sound {
    */
   public function render_playist_shortcode( $attributes, $content = null ) {
     return $this->get_template_html( 'playlist', $attributes );
+  }
+
+  public function add_css() {
+    $plugin_url = plugin_dir_url( __FILE__ );
+    wp_enqueue_style( 'tdp-sound-soudcloud', $plugin_url . 'style.css' );
   }
 
   /** Add the JavaScript files at the end of the page. */
