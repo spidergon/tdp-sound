@@ -42,6 +42,19 @@ function run (link, player) {
         htmlPlaylist.append(`<a ${active || ''} href="${file}">${title}</a>`)
       }
     })
+    // TODO July 13, 2019: Remove these!
+    htmlPlaylist.append(
+      `<a href="http://www.archive.org/download/bolero_69/Bolero.mp3">Bolero</a>`
+    )
+    htmlPlaylist.append(
+      `<a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Beethoven-MoonlightSonata</a>`
+    )
+    htmlPlaylist.append(
+      `<a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">CanoninD</a>`
+    )
+    htmlPlaylist.append(
+      `<a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">PatrikbkarlChamberSymph_vbr</a>`
+    )
 
     // Init sound button effect
     const soundBtn = document.getElementById('sound-btn')
