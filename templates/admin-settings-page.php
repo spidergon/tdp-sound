@@ -8,7 +8,7 @@
       // (sections are registered for "tdp_sound", each field is registered to a specific section)
       do_settings_sections('tdp_sound');
       // output save settings button
-      submit_button('Save');
+      submit_button();
     ?>
   </form>
 </div>
