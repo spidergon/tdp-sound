@@ -39,7 +39,7 @@ const dist = {
     '**/*.scss',
     '**/*.json',
     // include specific files and folders
-    'screenshot.png',
+    // 'screenshot.png',
     '.eslintrc',
     '.gitignore',
     '**/images/**/*',
