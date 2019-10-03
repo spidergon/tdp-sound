@@ -11,10 +11,10 @@
     }
     #playlist {
       display: grid;
-      padding-top: 0;
+      padding-top: 5px;
       max-height: 200px;
       overflow-y: auto;
-      span {
+      input {
         background: #fff;
         color: #999;
         padding: 5px;

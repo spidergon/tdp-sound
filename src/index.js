@@ -1,6 +1,7 @@
 import Player from './player'
 
 function animateSoundBtn (btn, icon) {
+  if (!btn) return
   btn.classList.remove('loading', 'speaker', 'speaker-mute')
   btn.classList.add(icon)
 }
@@ -29,7 +30,10 @@ function play (link, player, playlist) {
     Object.keys(tdpOptions).forEach((title, index) => {
       const file = tdpOptions[title]
       if (file) {
-        title = file.replace(/^.*[\\/]/, '').replace(/_/g, ' ').replace(/\..*$/, '') // get the real title
+        title = file
+          .replace(/^.*[\\/]/, '')
+          .replace(/_/g, ' ')
+          .replace(/\..*$/, '') // get the real title
         playlist.push({
           title,
           file,
@@ -37,7 +41,9 @@ function play (link, player, playlist) {
         })
         const active = index === 0 ? 'class="active"' : ''
         if (htmlPlaylist) {
-          htmlPlaylist.append(`<span ${active || ''}>${title}</span>`)
+          htmlPlaylist.append(
+            `<input type="button" ${active || ''} value="${title}" />`
+          )
         }
       }
     })
@@ -65,7 +71,7 @@ function play (link, player, playlist) {
     // Init HTML playlist effect
     if (audio.length > 0) {
       let current = 0
-      const tracks = htmlPlaylist.find('span')
+      const tracks = htmlPlaylist.find('input')
       const len = tracks.length
 
       if (len > 0) {
