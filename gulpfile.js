@@ -70,7 +70,7 @@ const cssSettings = {
     require('postcss-assets')({
       loadPaths: ['images/'],
       basePath: dir.root,
-      baseUrl: isProd ? dir.root : '/lingroove/wp-content/plugins/tdp-sound/'
+      baseUrl: isProd ? dir.root : '/wp-content/plugins/tdp-sound/'
     }),
     require('autoprefixer')({
       overrideBrowserslist: ['last 2 versions', '> 2%']
