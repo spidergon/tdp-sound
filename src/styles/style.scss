@@ -6,22 +6,22 @@
     #playlist {
       width: 400px;
       padding: 15px;
-      background: rgb(226, 225, 225);
+      background: transparent;
       box-sizing: content-box;
     }
     #playlist {
       display: grid;
-      padding-top: 5px;
       max-height: 200px;
       overflow-y: auto;
+      border: 1px solid #999;
       input {
-        background: #fff;
+        background: transparent;
         color: #999;
         padding: 5px;
         cursor: pointer;
         &.active,
         &:hover {
-          color: #000;
+          color: #a07428;
         }
         &:not(:first-child) {
           border-top: 1px solid #999;
