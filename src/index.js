@@ -1,23 +1,24 @@
 import Player from './player'
 
-function animateSoundBtn (btn, icon) {
-  if (!btn) return
-  btn.classList.remove('loading', 'speaker', 'speaker-mute')
-  btn.classList.add(icon)
-}
-
-function play (link, player, playlist) {
-  link
-    .addClass('active')
-    .siblings()
-    .removeClass('active')
-  player.src = playlist[link.index()].file
-  player.load()
-  player.play()
-}
-
 /* eslint-disable no-extra-semi */
 ;(function ($) {
+  function animateSoundBtn (btn, icon) {
+    if (!btn) return
+    btn.classList.remove('loading', 'speaker', 'speaker-mute')
+    btn.classList.add(icon)
+  }
+
+  function play (link, player, playlist) {
+    if (!link || link.index() === -1) return
+    link
+      .addClass('active')
+      .siblings()
+      .removeClass('active')
+    player.src = playlist[link.index()].file
+    player.load()
+    player.play()
+  }
+
   const rawTdpOptions = document.querySelector('.sound-options')
   if (rawTdpOptions && rawTdpOptions.value) {
     const htmlPlaylist = $('#playlist')
@@ -88,8 +89,8 @@ function play (link, player, playlist) {
           current++
           let link
           if (current === len) {
-            current = 0
-            link = tracks[0]
+            // current = 0
+            // link = tracks[0]
           } else {
             link = tracks[current]
           }
