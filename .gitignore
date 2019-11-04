@@ -4,6 +4,8 @@ node_modules/
 build/
 images/
 *.zip
+style.css
+yarn.lock
 
 # Logs
 logs
