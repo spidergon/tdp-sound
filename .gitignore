@@ -9,3 +9,5 @@ images/
 logs
 *.log
 
+# Linting
+eslint_result.html

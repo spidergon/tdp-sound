@@ -38,15 +38,18 @@ const dist = {
     '**/*.woff2',
     '**/*.scss',
     '**/*.json',
+    '**/*.md',
     // include specific files and folders
     // 'screenshot.png',
     '.eslintrc',
     '.gitignore',
     '**/images/**/*',
     '**/languages/**/*',
+    'LICENSE',
     // exclude files and folders
     '!.git/**/*',
-    '!node_modules/**/*'
+    '!node_modules/**/*',
+    '!eslint_result.html'
   ],
   srcOptions: { dot: true }
 }

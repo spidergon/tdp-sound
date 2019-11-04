@@ -4,9 +4,10 @@
   "description": "Wordpress plugin to add and manage sounds",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "wp-scripts start",
-    "build": "wp-scripts build",
-    "gulp": "gulp"
+    "dev": "concurrently \"wp-scripts start\" \"gulp\" --names \"wp-scripts,      gulp\" --prefix name",
+    "build": "yarn lint && rm -rf build && wp-scripts build && gulp build",
+    "gulp": "gulp",
+    "lint": "eslint --ignore-pattern '/build/*' --ignore-pattern '**/vendor/*' -o ./eslint_result.html -f html ."
   },
   "author": "@chrisservius",
   "private": true,
@@ -20,6 +21,7 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@wordpress/scripts": "^5.1.0",
+    "concurrently": "^5.0.0",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
     "del": "^5.1.0",
