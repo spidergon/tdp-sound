@@ -40,7 +40,6 @@ const dist = {
     '**/*.json',
     '**/*.md',
     // include specific files and folders
-    // 'screenshot.png',
     '.eslintrc',
     '.gitignore',
     '**/images/**/*',
@@ -62,14 +61,14 @@ const imgSettings = {
 const cssSettings = {
   src: dir.src + 'styles/style.scss',
   watch: dir.src + 'styles/**/*',
-  build: dir.root, // css file on root (WordPress)
+  // build: dir.root, // css file on root (WordPress)
   sassOpts: {
     outputStyle: 'nested',
-    imagePath: images.build,
+    // imagePath: images.build,
     precision: 3,
     errLogToConsole: true
   },
-  processors: [
+  processors: () => [
     require('postcss-assets')({
       loadPaths: ['images/'],
       basePath: dir.root,
@@ -86,12 +85,12 @@ const cssSettings = {
 const notifier = notify.withReporter((options, callback) => callback())
 
 async function clean () {
-  await src([`${dir.root}style.css`, `${dir.build}*.zip`], { allowEmpty: true })
-    .pipe(vinylPaths(del))
-    .pipe(notify({ message: 'Build files removed', onLast: true }))
-  await src(imgSettings.build, { allowEmpty: true })
-    .pipe(vinylPaths(del))
-    .pipe(notifier('Images folder removed'))
+  await src([`${dir.root}style.css`, `${dir.build}*.zip`], {
+    allowEmpty: true
+  }).pipe(vinylPaths(del))
+  // .pipe(notify({ message: 'Build files removed', onLast: true }))
+  await src(imgSettings.build, { allowEmpty: true }).pipe(vinylPaths(del))
+  // .pipe(notifier('Images folder removed'))
   cache.clearAll()
 }
 
@@ -124,9 +123,9 @@ function css () {
     .pipe(plumber())
     .pipe(gulpif(!isProd, sourcemaps.init()))
     .pipe(sass(cssSettings.sassOpts))
-    .pipe(postcss(cssSettings.processors))
+    .pipe(postcss(cssSettings.processors()))
     .pipe(gulpif(!isProd, sourcemaps.write()))
-    .pipe(dest(cssSettings.build))
+    .pipe(dest(dir.root))
 }
 
 function setProd (done) {
