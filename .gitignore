@@ -13,3 +13,5 @@ logs
 
 # Linting
 eslint_result.html
+
+.vscode
