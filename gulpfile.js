@@ -1,5 +1,3 @@
-'use strict'
-
 const { series, src, dest, watch } = require('gulp')
 const del = require('del')
 const vinylPaths = require('vinyl-paths')
@@ -40,7 +38,7 @@ const dist = {
     '**/*.json',
     '**/*.md',
     // include specific files and folders
-    '.eslintrc',
+    '.eslintrc.json',
     '.gitignore',
     '**/images/**/*',
     '**/languages/**/*',
@@ -84,7 +82,7 @@ const cssSettings = {
 
 const notifier = notify.withReporter((options, callback) => callback())
 
-async function clean () {
+async function clean() {
   await src([`${dir.root}style.css`, `${dir.build}*.zip`], {
     allowEmpty: true
   }).pipe(vinylPaths(del))
@@ -94,7 +92,7 @@ async function clean () {
   cache.clearAll()
 }
 
-function images () {
+function images() {
   return src(imgSettings.src)
     .pipe(
       imagemin([
@@ -118,7 +116,7 @@ function images () {
     .pipe(dest(imgSettings.build))
 }
 
-function css () {
+function css() {
   return src(cssSettings.src)
     .pipe(plumber())
     .pipe(gulpif(!isProd, sourcemaps.init()))
@@ -128,31 +126,31 @@ function css () {
     .pipe(dest(dir.root))
 }
 
-function setProd (done) {
+function setProd(done) {
   isProd = true
   done()
 }
 
-function buildFiles () {
+function buildFiles() {
   return src(dist.src, dist.srcOptions)
     .pipe(dest(dist.build))
     .pipe(notify({ message: 'Copy from buildFiles complete', onLast: true }))
 }
 
-function buildZip () {
+function buildZip() {
   return src(dist.build + '**', dist.srcOptions)
     .pipe(zip(dist.name))
     .pipe(dest(dir.build))
     .pipe(notify({ message: 'Zip task complete', onLast: true }))
 }
 
-function cleanBuild () {
+function cleanBuild() {
   return src(dist.build)
     .pipe(vinylPaths(del))
     .pipe(notifier('Build folder removed'))
 }
 
-function watchFiles () {
+function watchFiles() {
   console.log('*** Watching files... ***')
   const watchSettings = { ignoreInitial: false }
   watch(imgSettings.src, watchSettings, images)
@@ -163,13 +161,5 @@ exports.clean = clean
 exports.images = images
 exports.css = series(images, css)
 exports.watch = series(images, watchFiles)
-exports.build = series(
-  setProd,
-  clean,
-  images,
-  css,
-  buildFiles,
-  buildZip,
-  cleanBuild
-)
+exports.build = series(setProd, clean, images, css, buildFiles, buildZip, cleanBuild)
 exports.default = series(clean, images, watchFiles)

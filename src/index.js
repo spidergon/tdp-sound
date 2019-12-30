@@ -1,14 +1,14 @@
 import Player from './player'
 
 /* eslint-disable no-extra-semi */
-;(function ($) {
-  function animateSoundBtn (btn, icon) {
+;(function($) {
+  function animateSoundBtn(btn, icon) {
     if (!btn) return
     btn.classList.remove('loading', 'speaker', 'speaker-mute')
     btn.classList.add(icon)
   }
 
-  function play (link, player, playlist) {
+  function play(link, player, playlist) {
     if (!link || link.index() === -1) return
     link
       .addClass('active')
@@ -31,20 +31,18 @@ import Player from './player'
     Object.keys(tdpOptions).forEach((title, index) => {
       const file = tdpOptions[title]
       if (file) {
-        title = file
+        const newTitle = file
           .replace(/^.*[\\/]/, '')
           .replace(/_/g, ' ')
           .replace(/\..*$/, '') // get the real title
         playlist.push({
-          title,
+          newTitle,
           file,
           howl: null
         })
         const active = index === 0 ? 'class="active"' : ''
         if (htmlPlaylist) {
-          htmlPlaylist.append(
-            `<input type="button" ${active || ''} value="${title}" />`
-          )
+          htmlPlaylist.append(`<input type="button" ${active || ''} value="${newTitle}" />`)
         }
       }
     })
@@ -59,9 +57,7 @@ import Player from './player'
           else player.pause()
         }
       } else {
-        const player = new Player(playlist, icon =>
-          animateSoundBtn(soundBtn, icon)
-        )
+        const player = new Player(playlist, icon => animateSoundBtn(soundBtn, icon))
         soundBtn.onclick = () => {
           if (!player.playing()) player.play()
           else player.pause()

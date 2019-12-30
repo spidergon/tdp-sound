@@ -4,7 +4,7 @@
  * @param {Array} playlist Array of objects with playlist song details ({title, file, howl}).
  */
 class Player {
-  constructor (playlist, setIcon) {
+  constructor(playlist, setIcon) {
     this.playlist = playlist
     this.setIcon = setIcon
     this.index = 0
@@ -15,7 +15,7 @@ class Player {
    * Check if a sound is currently playing or not.
    * @returns {Boolean} boolean
    */
-  playing () {
+  playing() {
     return this.sound && this.sound.playing()
   }
 
@@ -23,9 +23,9 @@ class Player {
    * Play a song in the playlist.
    * @param {Number} index Index of the song in the playlist (leave empty to play the first or current).
    */
-  play (index) {
-    index = typeof index === 'number' ? index : this.index
-    const data = this.playlist[index]
+  play(index) {
+    const newIndex = typeof index === 'number' ? index : this.index
+    const data = this.playlist[newIndex]
 
     if (data.howl) {
       this.sound = data.howl
@@ -50,14 +50,14 @@ class Player {
       this.sound.play()
 
       // Keep track of the index we are currently playing
-      this.index = index
+      this.index = newIndex
     } else {
       console.log('no sound found.')
     }
   }
 
   /** Pause the currently playing track. */
-  pause () {
+  pause() {
     if (this.sound) this.sound.pause()
   }
 
@@ -65,7 +65,7 @@ class Player {
    * Skip to the next or previous track.
    * @param {String} direction 'next' or 'prev'.
    */
-  skip (direction) {
+  skip(direction) {
     // Get the next track based on the direction of the track
     let index = 0
     if (direction === 'prev') {
@@ -82,7 +82,7 @@ class Player {
    * Skip to a specific track based on its playlist index.
    * @param {Number} index Index in the playlist.
    */
-  skipTo (index) {
+  skipTo(index) {
     // Stop the current track
     if (this.sound) this.sound.stop()
 
